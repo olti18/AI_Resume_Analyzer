@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,7 +25,7 @@ public class CV {
     private String jobTitle;
     private String summary;
 
-    @OneToMany(mappedBy = "cv", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Experience> experiences = new ArrayList<>();
+//    @OneToMany(mappedBy = "cv", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Excperience> experiences = new ArrayList<>();>
 
 }
