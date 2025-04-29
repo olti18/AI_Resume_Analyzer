@@ -1,6 +1,7 @@
 package OltiBerisha.AI_Resume_Analyzer.Service.Impl;
 
 
+import OltiBerisha.AI_Resume_Analyzer.Config.KeycloakUtils;
 import OltiBerisha.AI_Resume_Analyzer.Dto.CVDto;
 import OltiBerisha.AI_Resume_Analyzer.Dto.CVRequestDto;
 import OltiBerisha.AI_Resume_Analyzer.Mapper.CvMapper;
@@ -25,6 +26,7 @@ public class CvServiceImpl  {
 
     public CVDto createCV(CVRequestDto cvRequestDto) {
         CV cv = CVMapper.toEntity(cvRequestDto);
+        cv.setUserId(KeycloakUtils.getCurrentUserId());
         CV saved = cvRepository.save(cv);
         return CVMapper.toDto(saved);
     }

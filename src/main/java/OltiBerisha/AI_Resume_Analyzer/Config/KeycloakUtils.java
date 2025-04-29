@@ -5,7 +5,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 public class KeycloakUtils {
-    private  String getCurrentUserId() {
+
+    public static String getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof Jwt) {
             Jwt jwt = (Jwt) authentication.getPrincipal();
@@ -13,4 +14,5 @@ public class KeycloakUtils {
         }
         return null;
     }
+
 }
