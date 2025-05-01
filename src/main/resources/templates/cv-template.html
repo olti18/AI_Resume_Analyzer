@@ -1,11 +1,38 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1 { color: #0073e6; }
+    </style>
 </head>
 <body>
+<h1 th:text="${cv.fullname}">Emri Mbiemri</h1>
+<p><strong>Email:</strong> <span th:text="${cv.email}"></span></p>
+<p><strong>Phone:</strong> <span th:text="${cv.phoneNumber}"></span></p>
+<p><strong>Job Title:</strong> <span th:text="${cv.jobTitle}"></span></p>
+<p><strong>Summary:</strong> <span th:text="${cv.summary}"></span></p>
 
+<h2>Experience</h2>
+<ul>
+    <li th:each="exp : ${cv.experiences}">
+        <b th:text="${exp.jobTitle}"></b> - <span th:text="${exp.companyName}"></span>
+        <br/>
+        <small th:text="${exp.startDate} + ' to ' + ${exp.endDate}"></small>
+        <p th:text="${exp.description}"></p>
+    </li>
+</ul>
 </body>
 </html>
-
