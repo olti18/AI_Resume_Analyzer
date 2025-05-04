@@ -41,7 +41,7 @@ public class CvMapper {
     }
 
     // Entity -> CVDto
-    public CVDto toDto(CV cv) {
+    public static CVDto toDto(CV cv) {
         CVDto dto = new CVDto();
         dto.setId(cv.getId());
         dto.setUserId(cv.getUserId());

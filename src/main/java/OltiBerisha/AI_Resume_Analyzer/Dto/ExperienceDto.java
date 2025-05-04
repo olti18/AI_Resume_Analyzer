@@ -11,4 +11,7 @@ public class ExperienceDto {
     private String position;
     private String company;
     private String years;
+    private String jobTitle;
+    private String companyName;
+
 }

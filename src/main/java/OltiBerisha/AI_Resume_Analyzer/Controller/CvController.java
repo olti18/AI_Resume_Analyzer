@@ -21,10 +21,10 @@ public class CvController {
         return ResponseEntity.ok(cvService.createCV(cvRequestDto));
     }
 
-    @GetMapping
-    public ResponseEntity<List<CVDto>> getAllCVs() {
-        return ResponseEntity.ok(cvService.getAllCVs());
-    }
+//    @GetMapping
+//    public ResponseEntity<List<CVDto>> getAllCVs() {
+//        return ResponseEntity.ok(cvService.getAllCVs());
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<CVDto> getCVById(@PathVariable Long id) {

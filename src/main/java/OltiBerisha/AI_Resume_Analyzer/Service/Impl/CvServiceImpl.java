@@ -31,12 +31,12 @@ public class CvServiceImpl  {
         return CVMapper.toDto(saved);
     }
 
-    public List<CVDto> getAllCVs() {
-        return cvRepository.findAll()
-                .stream()
-                .map(CVMapper::toDto)
-                .collect(Collectors.toList());
-    }
+//    public List<CVDto> getAllCVs() {
+//        return cvRepository.findAll()
+//                .stream()
+//                .map(CVMapper::toDto)
+//                .collect(Collectors.toList());
+//    }
 
 
     public CVDto getCVById(Long id) {
