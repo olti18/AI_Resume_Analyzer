@@ -1,48 +1,31 @@
-#FROM gradle:8.5-jdk23 AS build
-#
-#COPY --chown=gradle:gradle . /home/gradle/project
-#WORKDIR /home/gradle/project
-#
-#RUN gradle build -x test
-#
-#FROM eclipse-temurin:23-jre
-#
-#WORKDIR /app
-#
-#COPY --from=build /home/gradle/project/build/libs/*.jar app.jar
-#
-#EXPOSE 3000
-#
-#ENTRYPOINT ["java","-jar","app.jar"]
-# Build stage with Java 23 + Gradle 8.5
-FROM eclipse-temurin:23-jdk AS build-env
+# Use official OpenJDK 23 slim image
+FROM eclipse-temurin:23-jdk-jammy as build
 
-RUN apt-get update && apt-get install -y curl unzip
-
-# Install Gradle 8.5 manually
-RUN curl -sSLo gradle.zip https://services.gradle.org/distributions/gradle-8.5-bin.zip && \
+# Install Gradle
+RUN apt-get update && apt-get install -y curl unzip && \
+    curl -sLo gradle.zip https://services.gradle.org/distributions/gradle-8.13-bin.zip && \
     unzip gradle.zip -d /opt && \
-    ln -s /opt/gradle-8.5 /opt/gradle && \
-    ln -s /opt/gradle/bin/gradle /usr/bin/gradle
+    ln -s /opt/gradle-8.13/bin/gradle /usr/bin/gradle
 
-# Set up user and working directory
-RUN useradd -ms /bin/bash gradle
-USER gradle
-WORKDIR /home/gradle/project
+# Set working directory
+WORKDIR /app
 
 # Copy project files
-COPY --chown=gradle:gradle . .
+COPY . .
 
-# Run build
+# Build the project
 RUN gradle build -x test
 
-# Final image to run app
-FROM eclipse-temurin:23-jre
+# Second stage: smaller image for running app
+FROM eclipse-temurin:23-jre-jammy
 
 WORKDIR /app
 
-COPY --from=build-env /home/gradle/project/build/libs/*.jar app.jar
+# Copy built jar from previous stage
+COPY --from=build /app/build/libs/*.jar app.jar
 
-EXPOSE 3000
+# Expose port
+EXPOSE 8080
 
+# Run the jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
