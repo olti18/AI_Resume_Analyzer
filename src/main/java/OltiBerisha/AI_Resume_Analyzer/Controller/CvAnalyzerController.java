@@ -16,8 +16,7 @@ import java.util.Map;
 @RequestMapping("/api/cv")
 public class CvAnalyzerController {
 
-    private final String apiKey = "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";
-    //private final String apiKey = "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";
+    private final String apiKey = "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";
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final Tika tika = new Tika();
