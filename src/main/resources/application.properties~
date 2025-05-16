@@ -33,6 +33,7 @@ keycloak.principal-attribute=preferred_username
 #spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 
 spring.datasource.url=jdbc:mariadb://containers-us-west-120.railway.app:1234/railway
+
 spring.datasource.username=root
 spring.datasource.password=ZAAMwxiNsphhzckyOrQKxXfvpIpKLKIZ
 spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
