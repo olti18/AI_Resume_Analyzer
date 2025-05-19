@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CV</title>
+    <link rel="stylesheet" type="text/css" href="template1.css">
+</head>
+<body>
+<div class="cv-container">
+    <h1 class="name">${fullname}</h1>
+    <p class="title">${jobTitle}</p>
+    <p class="contact">📧 ${email} | 📞 ${phoneNumber}</p>
+
+    <section class="summary">
+        <h2>Summary</h2>
+        <p>${summary}</p>
+    </section>
+
+    <section class="experience">
+        <h2>Experience</h2>
+        <ul>
+            <!-- Repeat for each experience -->
+            <#list experiences as exp>
+            <li>
+                <h3>${exp.jobTitle} at ${exp.company}</h3>
+                <p>${exp.startDate} – ${exp.endDate}</p>
+                <p>${exp.description}</p>
+            </li>
+        </#list>
+        </ul>
+    </section>
+</div>
+</body>
+</html>

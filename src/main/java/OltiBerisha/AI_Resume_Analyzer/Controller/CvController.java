@@ -16,6 +16,13 @@ public class CvController {
     @Autowired
     private CvServiceImpl cvService;
 
+    @GetMapping("cv/{id{}/download")
+    public ResponseEntity<byte[]> downloadCVAsPDF(@PathVariable Long id, @RequestParam(defaultValue = "default") String Template ) {
+
+        byte[] pdfBytes = cvService.gene(id, Template);
+
+    }
+
     @PostMapping
     public ResponseEntity<CVDto> createCV(@RequestBody CVRequestDto cvRequestDto) {
         return ResponseEntity.ok(cvService.createCV(cvRequestDto));
