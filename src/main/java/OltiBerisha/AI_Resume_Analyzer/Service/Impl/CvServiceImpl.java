@@ -7,7 +7,7 @@ import OltiBerisha.AI_Resume_Analyzer.Dto.CVRequestDto;
 import OltiBerisha.AI_Resume_Analyzer.Mapper.CvMapper;
 import OltiBerisha.AI_Resume_Analyzer.Mapper.ExperienceMapper;
 import OltiBerisha.AI_Resume_Analyzer.Model.CV;
-import OltiBerisha.AI_Resume_Analyzer.Pdf.PdfGenerator;
+
 import OltiBerisha.AI_Resume_Analyzer.Repository.CVRepository;
 import OltiBerisha.AI_Resume_Analyzer.Service.CvService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CvServiceImpl  {
     @Autowired
     private CvMapper CVMapper;
 
-    
+
 
 
     public CVDto createCV(CVRequestDto cvRequestDto) {
