@@ -39,6 +39,27 @@ public class CvMapper {
 
         return cv;
     }
+    public static CV toEntity(CVDto dto) {
+        CV cv = new CV();
+        cv.setId(dto.getId());
+        cv.setUserId(dto.getUserId());
+        cv.setFullname(dto.getFullname());
+        cv.setEmail(dto.getEmail());
+        cv.setPhoneNumber(dto.getPhoneNumber());
+        cv.setJobTitle(dto.getJobTitle());
+        cv.setSummary(dto.getSummary());
+
+        if (dto.getExperiences() != null) {
+            List<Experience> experiences = dto.getExperiences()
+                    .stream()
+                    .map(ExperienceMapper::toEntity) // Make sure this method exists!
+                    .collect(Collectors.toList());
+
+            cv.setExperiences(experiences);
+        }
+
+        return cv;
+    }
 
     // Entity -> CVDto
     public static CVDto toDto(CV cv) {

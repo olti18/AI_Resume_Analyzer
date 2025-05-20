@@ -1,34 +1,46 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>CV</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="template1.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="cv-container">-->
+<!--    <h1 class="name">${fullname}</h1>-->
+<!--    <p class="title">${jobTitle}</p>-->
+<!--    <p class="contact">📧 ${email} | 📞 ${phoneNumber}</p>-->
+
+<!--    <section class="summary">-->
+<!--        <h2>Summary</h2>-->
+<!--        <p>${summary}</p>-->
+<!--    </section>-->
+
+<!--    <section class="experience">-->
+<!--        <h2>Experience</h2>-->
+<!--        <ul>-->
+<!--            &lt;!&ndash; Repeat for each experience &ndash;&gt;-->
+<!--            <#list experiences as exp>-->
+<!--            <li>-->
+<!--                <h3>${exp.jobTitle} at ${exp.company}</h3>-->
+<!--                <p>${exp.startDate} – ${exp.endDate}</p>-->
+<!--                <p>${exp.description}</p>-->
+<!--            </li>-->
+<!--        </#list>-->
+<!--        </ul>-->
+<!--    </section>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>CV</title>
-    <link rel="stylesheet" type="text/css" href="template1.css">
+    <style>{{style}}</style>
 </head>
 <body>
-<div class="cv-container">
-    <h1 class="name">${fullname}</h1>
-    <p class="title">${jobTitle}</p>
-    <p class="contact">📧 ${email} | 📞 ${phoneNumber}</p>
-
-    <section class="summary">
-        <h2>Summary</h2>
-        <p>${summary}</p>
-    </section>
-
-    <section class="experience">
-        <h2>Experience</h2>
-        <ul>
-            <!-- Repeat for each experience -->
-            <#list experiences as exp>
-            <li>
-                <h3>${exp.jobTitle} at ${exp.company}</h3>
-                <p>${exp.startDate} – ${exp.endDate}</p>
-                <p>${exp.description}</p>
-            </li>
-        </#list>
-        </ul>
-    </section>
-</div>
+<h1>{{fullname}}</h1>
+<h2>{{jobTitle}}</h2>
+<p>{{email}} | {{phone}}</p>
+<h3>Summary</h3>
+<p>{{summary}}</p>
 </body>
 </html>

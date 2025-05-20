@@ -8,6 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExperienceMapper {
 
+    public static Experience toEntity(ExperienceDto dto) {
+        Experience experience = new Experience();
+        experience.setCompany(dto.getCompany());
+        experience.setPosition(dto.getPosition());
+        return experience;
+    }
+
 
     // Mapper për ExperienceRequestDto -> Entity
     public static Experience toEntity(ExperienceRequestDto dto) {
