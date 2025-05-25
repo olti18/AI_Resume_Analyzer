@@ -28,7 +28,7 @@
 - **Database**: MariaDB
 - **DevOps**: Docker, Docker Compose
 - **Documentation**: Swagger / OpenAPI
-- **(Optional)** AI: OpenRouter API or other LLMs
+- **(Optional)** AI: OpenRouter API
 
 ---
 
