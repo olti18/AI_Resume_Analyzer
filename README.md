@@ -28,7 +28,7 @@
 - **Database**: MariaDB
 - **DevOps**: Docker, Docker Compose
 - **Documentation**: Swagger / OpenAPI
-- **(Optional)** AI: OpenRouter API
+- **Ai api** AI: OpenRouter API
 
 ---
 
@@ -43,5 +43,5 @@
 ### Clone the Project
 
 ```bash
-git clone https://github.com/your-username/resume-analyzer.git
+git clone https://github.com/olti18/resume-analyzer.git
 cd resume-analyzer
