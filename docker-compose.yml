@@ -1,41 +1,55 @@
+version: "3.9"
+
 services:
-  database:
-    image: mariadb:latest
-    container_name: mariaDb
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: Resume_Analyzer_db
+      POSTGRES_DB: Resume_Analyzer_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - database_volume:/var/lib/mysql
+      - pgdata:/var/lib/postgresql/data
     networks:
       - database_network
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5.2.1
-    container_name: PhpMyAdmin
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_ui
     environment:
-      PMA_HOST: database
-      PMA_PORT: 3306
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "8099:80"
     depends_on:
-      - database
+      - postgres
     networks:
       - database_network
 
+
+  #  adminer:
+  #    image: adminer
+  #    container_name: adminer_ui
+  #    ports:
+  #      - "8099:8080"
+  #    depends_on:
+  #      - postgres
+  #    networks:
+  #      - database_network
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
-    container_name: KeyCloak
+    container_name: keycloak
     command: ["start-dev", "--import-realm"]
     environment:
-      KC_DB: mariadb
-      KC_DB_URL: jdbc:mariadb://database:3306/Resume_Analyzer_db
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/Resume_Analyzer_db
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-      KC_DB_USERNAME: root
-      KC_DB_PASSWORD: root
       KC_PROXY: "edge"
       KC_FEATURES: "account-api,authorization"
     ports:
@@ -43,12 +57,12 @@ services:
     volumes:
       - ./realm-export.json:/opt/keycloak/data/import/realm-export.json
     depends_on:
-      - database
+      - postgres
     networks:
       - database_network
 
 volumes:
-  database_volume:
+  pgdata:
 
 networks:
   database_network:
