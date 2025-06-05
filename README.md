@@ -1,46 +1,55 @@
-# AI_Resume_Analyze!
+# 🧠 AI Resume Analyzer
+<table>
+	<tr>
+		<td><img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/rest.png" alt="REST" title="REST"/></td>
+		<td><img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/github.png" alt="GitHub" title="GitHub"/></td>
+		<td><img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/intellij.png" alt="IntelliJ" title="IntelliJ"/></td>
+		<td><img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/postman.png" alt="Postman" title="Postman"/></td>
+		<td><img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/java.png" alt="Java" title="Java"/></td>
+		<td><img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/swagger.png" alt="Swagger" title="Swagger"/></td>
+		<td><img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/postgresql.png" alt="PostgreSQL" title="PostgreSQL"/></td>
+		<td><img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/docker.png" alt="Docker" title="Docker"/></td>
+	</tr>
+</table>
 
-[![Java](https://img.shields.io/badge/Java-23-blue)](https://www.oracle.com/java/)
-[![Docker](https://img.shields.io/badge/Docker-Enabled-blue)](https://www.docker.com/)
-[![Keycloak](https://img.shields.io/badge/Keycloak-Security-red)](https://www.keycloak.org/)
-[![MariaDB](https://img.shields.io/badge/Database-MariaDB-lightgrey)](https://mariadb.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-**Resume Analyzer** is a Java 23 web application that uses AI to evaluate resumes and match them with job requirements. It supports secure login with **Keycloak**, persistent storage with **MariaDB**, and is fully containerized with **Docker** for easy deployment.
-
----
-
-## Features
-
-- Secure user authentication (Keycloak)
-- Resume upload and AI-based analysis
-- Match resumes with job descriptions
-- Admin & recruiter role management
-- RESTful API with Swagger documentation
-- Dockerized infrastructure for quick setup
+🚀 **AI Resume Analyzer** is a modern web application built with **Java 23** and **Spring Boot**, designed to evaluate resumes using AI and match them with job descriptions.  
+🔒 It features secure authentication using **Keycloak**, persistent storage in **PostgreSQL**, and containerized services using **Docker**.
 
 ---
 
-## Tech Stack
+## ✨ Features
 
-- **Backend**: Java 23, Spring Boot
-- **Auth**: Keycloak (OAuth2 / OIDC)
-- **Database**: MariaDB
-- **DevOps**: Docker, Docker Compose
-- **Documentation**: Swagger / OpenAPI
-- **Ai api** AI: OpenRouter API
+- 🔐 Secure user authentication via **Keycloak (OAuth2/OIDC)**
+- 📄 Resume upload & **AI-powered analysis**
+- 🧠 Match resumes with job descriptions
+- 👥 Admin and recruiter role management
+- 🌐 RESTful API with **Swagger / OpenAPI**
+- 🐳 Fully Dockerized for seamless deployment
 
 ---
 
-## Getting Started
+## 🛠 Tech Stack
 
-### Prerequisites
+| Layer        | Technology         |
+|--------------|--------------------|
+| Backend      | Java 23, Spring Boot |
+| Authentication | Keycloak |
+| Database     | PostgreSQL |
+| AI API       | OpenRouter |
+| DevOps       | Docker, Docker Compose |
+| Docs         | Swagger / OpenAPI |
 
-- Java 23
-- Docker & Docker Compose
-- Git
+---
 
-### Clone the Project
+## 🚀 Getting Started
+
+### ✅ Prerequisites
+
+- 🧰 Java 23+
+- 🐳 Docker & Docker Compose
+- 🧾 Git
+
+### 📦 Clone the Repository
 
 ```bash
 git clone https://github.com/olti18/resume-analyzer.git
