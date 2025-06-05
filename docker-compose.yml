@@ -28,17 +28,6 @@ services:
     networks:
       - database_network
 
-
-  #  adminer:
-  #    image: adminer
-  #    container_name: adminer_ui
-  #    ports:
-  #      - "8099:8080"
-  #    depends_on:
-  #      - postgres
-  #    networks:
-  #      - database_network
-
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
     container_name: keycloak

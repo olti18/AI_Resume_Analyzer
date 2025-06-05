@@ -18,107 +18,58 @@ repositories {
 }
 
 dependencies {
+	// --- Core Spring Boot ---
 	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
-	// https://mvnrepository.com/artifact/com.stripe/stripe-java
-	implementation 'com.stripe:stripe-java:28.2.0'
-
-
-
-	implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.6.3'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
-	// https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator
+	// --- Database & Persistence ---
+	implementation 'org.postgresql:postgresql:42.7.6'
+	// runtimeOnly 'org.mariadb.jdbc:mariadb-java-client' // Old: MariaDB (commented out)
 	implementation 'org.hibernate.validator:hibernate-validator:9.0.0.CR1'
 
-	// Spring Boot Security dhe Web
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// --- Keycloak Integration ---
+	implementation 'org.keycloak:keycloak-admin-client:22.0.1'
 
-	// Lombok për thjeshtësi
+	// --- Dev Tools ---
+	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+	// --- Mapping & Validation ---
+	implementation 'org.mapstruct:mapstruct:1.6.3'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	// Test Dependencies
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-
-	// Swagger 2 (për Docket)
-	implementation 'io.springfox:springfox-swagger2:2.9.2'
-	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
-	//
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	//
-	// JPA dhe OAuth2 Client
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-
-	// Docker Compose
-	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
-// https://mvnrepository.com/artifact/org.postgresql/postgresql
-	implementation("org.postgresql:postgresql:42.7.6")
-	// JDBC Driver për MariaDB
-//	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-
-	// OpenAPI / Swagger (përdorimi i springdoc për Swagger)
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
-
-	// Spring Security Config për konfigurim të avancuar të sigurisë
-	implementation 'org.springframework.security:spring-security-config'
-
-	// Test për Swagger
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-	// Për klientin OAuth2 dhe resursin OAuth2
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-	//adedd
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
-	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.1'
-	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	// --- API Docs (Swagger / OpenAPI) ---
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
-	//added above
-	//and belowe haha
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
-	//implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
-
-	/////////
-	implementation"org.keycloak:keycloak-admin-client:22.0.1"
-	//new
-	// https://mvnrepository.com/artifact/org.jsoup/jsoup
-	implementation("org.jsoup:jsoup:1.20.1")
-
-	// https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf
-	implementation("org.xhtmlrenderer:flying-saucer-pdf:9.12.0")
-
-	// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
-	implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.14'
-	// https://mvnrepository.com/artifact/org.json/json
-	implementation 'org.json:json:20250107'
-
-
-
-	// https://mvnrepository.com/artifact/org.apache.tika/tika-core
-	implementation("org.apache.tika:tika-core:3.1.0")
-	// https://mvnrepository.com/artifact/org.apache.tika/tika-parsers-standard-package
-	implementation("org.apache.tika:tika-parsers-standard-package:3.1.0")
-
-	implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
-
-	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-	//implementation("com.fasterxml.jackson.core:jackson-databind:2.19.0-rc2")
-	// https://mvnrepository.com/artifact/org.apache.poi/poi
-	implementation("org.apache.poi:poi:5.4.1")
-	// https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
-	implementation("org.apache.pdfbox:pdfbox:3.0.4")
-
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// --- AI, Parsing, PDF & Document Tools ---
+	implementation 'org.jsoup:jsoup:1.20.1'
+	implementation 'org.xhtmlrenderer:flying-saucer-pdf:9.12.0'
 	implementation 'com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.10'
 	implementation 'com.openhtmltopdf:openhtmltopdf-slf4j:1.0.10'
-
 	implementation 'com.itextpdf:itextpdf:5.5.13.3'
+	implementation 'org.apache.tika:tika-core:3.1.0'
+	implementation 'org.apache.tika:tika-parsers-standard-package:3.1.0'
+	implementation 'org.apache.poi:poi:5.4.1'
+	implementation 'org.apache.pdfbox:pdfbox:3.0.4'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+	// --- External API & HTTP Clients ---
+	implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.14'
+	implementation 'org.json:json:20250107'
+	implementation 'com.stripe:stripe-java:28.2.0'
+
+	// --- Testing ---
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.1'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 
 }
 
