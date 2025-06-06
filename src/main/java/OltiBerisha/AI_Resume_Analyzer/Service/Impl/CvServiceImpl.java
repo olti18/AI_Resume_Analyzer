@@ -11,6 +11,7 @@ import OltiBerisha.AI_Resume_Analyzer.Model.CV;
 import OltiBerisha.AI_Resume_Analyzer.Repository.CVRepository;
 import OltiBerisha.AI_Resume_Analyzer.Service.CvService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class CvServiceImpl  {
 //                .collect(Collectors.toList());
 //    }
 
-
+    @Cacheable(value="cvs", key = "#id")
     public CVDto getCVById(Long id) {
         CV cv = cvRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("CV not found with id: " + id));
