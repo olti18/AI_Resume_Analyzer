@@ -1,6 +1,5 @@
 package OltiBerisha.AI_Resume_Analyzer.Service.Impl;
 
-
 import OltiBerisha.AI_Resume_Analyzer.Config.KeycloakUtils;
 import OltiBerisha.AI_Resume_Analyzer.Dto.CVDto;
 import OltiBerisha.AI_Resume_Analyzer.Dto.CVRequestDto;
@@ -25,8 +24,6 @@ public class CvServiceImpl  {
 
     @Autowired
     private CvMapper CVMapper;
-
-
 
 
     public CVDto createCV(CVRequestDto cvRequestDto) {
