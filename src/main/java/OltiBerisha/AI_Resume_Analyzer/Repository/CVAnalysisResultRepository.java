@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CVAnalysisResultRepository extends JpaRepository<CVAnalysisResult,Long> {
     List<CVAnalysisResult> findByCvId(Long cvId);
+    List<CVAnalysisResult> findByCvIdAndUserId(Long cvId, String userId);
 }
