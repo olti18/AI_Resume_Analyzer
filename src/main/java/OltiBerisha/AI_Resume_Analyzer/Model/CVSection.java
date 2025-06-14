@@ -1,22 +1,24 @@
 package OltiBerisha.AI_Resume_Analyzer.Model;
 
 import jakarta.persistence.*;
-import lombok.*;
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Feedback {
+public class CVSection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId;
     private Long cvId;
 
-    @Column(length = 3000)
-    private String message;
-    private LocalDateTime submittedAt;
+    private String sectionName;
+
+    @Column(length = 5000)
+    private String content;
 }
+

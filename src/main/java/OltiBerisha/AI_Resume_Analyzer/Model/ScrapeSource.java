@@ -8,15 +8,13 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Feedback {
+public class ScrapeSource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId;
-    private Long cvId;
-
-    @Column(length = 3000)
-    private String message;
-    private LocalDateTime submittedAt;
+    private String name;
+    private String baseUrl;
+    private Boolean active;
+    private LocalDateTime lastScrapeTime;
 }

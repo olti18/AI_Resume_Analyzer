@@ -8,15 +8,17 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Feedback {
+public class JobSuggestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId;
     private Long cvId;
 
-    @Column(length = 3000)
-    private String message;
-    private LocalDateTime submittedAt;
+    private String jobTitle;
+    private String companyName;
+    private String location;
+    private String url;
+    private Double matchScore;
+    private LocalDateTime scrapeDate;
 }

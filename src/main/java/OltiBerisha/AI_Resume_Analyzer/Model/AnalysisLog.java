@@ -1,5 +1,6 @@
 package OltiBerisha.AI_Resume_Analyzer.Model;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -8,15 +9,16 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Feedback {
+public class AnalysisLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId;
     private Long cvId;
+    private String status;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
-    @Column(length = 3000)
-    private String message;
-    private LocalDateTime submittedAt;
+    @Column(length = 2000)
+    private String errorMessage;
 }
