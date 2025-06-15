@@ -16,12 +16,14 @@ public class CVAnalysisResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long cvId;
-
-    @Column(length = 5000)
+    @OneToOne
+    @JoinColumn(name = "cv_id", referencedColumnName = "id")
+    private Cv cv;
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String summary;
-
-    @Column(length = 5000)
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String suggestedImprovements;
 
     private LocalDateTime analysisDate;
@@ -29,3 +31,18 @@ public class CVAnalysisResult {
     private String userId;
 }
 
+//@Id
+//@GeneratedValue(strategy = GenerationType.IDENTITY)
+//private Long id;
+//
+//private Long cvId;
+//
+//@Column(length = 5000)
+//private String summary;
+//
+//@Column(length = 5000)
+//private String suggestedImprovements;
+//
+//private LocalDateTime analysisDate;
+//
+//private String userId;

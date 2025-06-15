@@ -10,4 +10,5 @@ public interface CVSectionService {
     CVSectionDto save(Long cvId, CVSectionDto dto);
     List<CVSectionDto> getSectionsByCvId(Long cvId);
 
+    //List<CVSectionDto> getSectionsByCvIdForCurrentUser(Long cvId);
 }

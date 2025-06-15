@@ -4,8 +4,10 @@ import OltiBerisha.AI_Resume_Analyzer.Config.KeycloakUtils;
 import OltiBerisha.AI_Resume_Analyzer.Dto.CvAnalysisResultDto;
 import OltiBerisha.AI_Resume_Analyzer.Mapper.CvAnalysisResultMapper;
 import OltiBerisha.AI_Resume_Analyzer.Model.CVAnalysisResult;
+import OltiBerisha.AI_Resume_Analyzer.Model.Cv;
 import OltiBerisha.AI_Resume_Analyzer.Repository.CVAnalysisResultRepository;
 import OltiBerisha.AI_Resume_Analyzer.Service.CVAnalysisResultService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +22,15 @@ public class CVAnalysisResultServiceImpl implements CVAnalysisResultService {
     private final CvAnalysisResultMapper mapper;
 
     @Override
-    public CvAnalysisResultDto save(Long cvId, CvAnalysisResultDto dto) {
+    public CvAnalysisResultDto save(Cv cvId, CvAnalysisResultDto dto) {
         CVAnalysisResult entity = mapper.toEntity(dto);
-        entity.setCvId(cvId);
+        entity.setCv(cvId);
         entity.setAnalysisDate(LocalDateTime.now());
         entity.setUserId(KeycloakUtils.getCurrentUserId());
         return mapper.toDto(repository.save(entity));
     }
 
+    @Transactional
     @Override
     public List<CvAnalysisResultDto> getByCvId(Long cvId) {
         String currentUserId = KeycloakUtils.getCurrentUserId();

@@ -63,9 +63,16 @@ dependencies {
 	implementation 'org.apache.pdfbox:pdfbox:2.0.27'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 
-	implementation 'org.apache.tika:tika-core:3.1.0'
-	implementation 'org.apache.tika:tika-parsers:3.1.0'
-	implementation 'org.apache.pdfbox:pdfbox:2.0.30' // Shembull versioni i rekomanduar, kontrollo në dokumentacion
+	implementation 'org.apache.tika:tika-core:2.9.1'
+	implementation 'org.apache.tika:tika-parsers-standard-package:2.9.1'
+		// PDFBox v2.0.30 është e përputhshme me Tika 2.9.1
+	implementation 'org.apache.pdfbox:pdfbox:2.0.30'
+
+
+	//implementation 'org.apache.tika:tika-core:3.1.0'
+//	implementation 'org.apache.tika:tika-parsers:3.1.0'
+	//implementation 'org.apache.tika:tika-parsers-standard-package:3.1.0'
+	//implementation 'org.apache.pdfbox:pdfbox:2.0.30' // Shembull versioni i rekomanduar, kontrollo në dokumentacion
 
 
 	// --- External API & HTTP Clients ---

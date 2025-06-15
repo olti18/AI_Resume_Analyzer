@@ -7,4 +7,8 @@ import java.util.List;
 public interface JobSuggestionService {
     List<JobSuggestionDto> getSuggestionsForCv(Long cvId);
     JobSuggestionDto getSuggestion(Long id);
+
+    //List<JobSuggestionDto> getSuggestionsForCvOfCurrentUser(Long cvId);
+
+    //JobSuggestionDto getByIdForCurrentUser(Long id);
 }

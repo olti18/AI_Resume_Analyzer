@@ -17,18 +17,16 @@ import java.util.List;
 public class FavoriteJobServiceImpl implements FavoriteJobService {
     private final FavoriteJobRepository repository;
     private final FavoriteJobMapper mapper;
-    private final KeycloakUtils keycloakUtils;
-
     @Override
     public List<FavoriteJobDto> getAllForCurrentUser() {
-        String userId = keycloakUtils.getCurrentUserId();
+        String userId = KeycloakUtils.getCurrentUserId();
         return mapper.toDtoList(repository.findByUserId(userId));
     }
 
     @Override
     public FavoriteJobDto save(Long jobSuggestionId) {
         FavoriteJob job = new FavoriteJob();
-        job.setUserId(keycloakUtils.getCurrentUserId());
+        job.setUserId(KeycloakUtils.getCurrentUserId());
         job.setJobSuggestionId(jobSuggestionId);
         job.setSavedAt(LocalDateTime.now());
         return mapper.toDto(repository.save(job));

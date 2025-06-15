@@ -28,5 +28,7 @@ public class AnalysisLogServiceImpl implements AnalysisLogService {
         entity.setStartTime(LocalDateTime.now());
         return mapper.toDto(repository.save(entity));
     }
+
+
 }
 
