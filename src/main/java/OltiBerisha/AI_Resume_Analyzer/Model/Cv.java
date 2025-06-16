@@ -17,7 +17,7 @@ public class Cv {
 
     private String cvFilePath;
 
-    @Lob
+
     @Column(columnDefinition = "TEXT")
     private String textExtracted;
 
