@@ -25,7 +25,7 @@
     @RequestMapping("/api/cv")
     public class CvController {
 
-        private final String apiKey = "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";
+        private final String apiKey = "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";
 
         private final RestTemplate restTemplate = new RestTemplate();
         private final Tika tika = new Tika();
@@ -74,6 +74,10 @@
 
                 String summary = summaryObj instanceof String ? (String) summaryObj : "No valid summary";
                 String suggestedImprovements = improvementsObj instanceof String ? (String) improvementsObj : "No valid improvements";
+                // this is new
+//                List<String> skills = (List<String>) aiResponse.getOrDefault("skills", new ArrayList<>());
+//                List<String> jobTitles = (List<String>) aiResponse.getOrDefault("jobTitles", new ArrayList<>());
+//                String experienceLevel = (String) aiResponse.getOrDefault("experienceLevel", "unknown");
 
                 System.out.println("Summary: " + summary);
                 System.out.println("Suggested Improvements: " + suggestedImprovements);
@@ -135,18 +139,38 @@
             Map<String, Object> requestBody = new HashMap<>();
             requestBody.put("model", "thudm/glm-z1-32b:free");
             List<Map<String, String>> messages = new ArrayList<>();
+//            messages.add(Map.of(
+//                    "role", "system",
+//                    "content", "You are an HR assistant. Always respond ONLY with a valid JSON object with two fields: 'summary' and 'suggestedImprovements'. Do not include any extra text, markdown, or explanation."
+//            ));
+//
+//            messages.add(Map.of(
+//                    "role", "user",
+//                    "content", "Please analyze this CV and respond with only JSON like this:\n" +
+//                            "{\n  \"summary\": \"...\",\n  \"suggestedImprovements\": \"...\"\n}\n\n" +
+//                            "CV Text:\n" + extractedText
+//            ));
+
             messages.add(Map.of(
                     "role", "system",
-                    "content", "You are an HR assistant. Always respond ONLY with a valid JSON object with two fields: 'summary' and 'suggestedImprovements'. Do not include any extra text, markdown, or explanation."
+                    "content", "You are an HR assistant. Always respond ONLY with a valid JSON object with the following fields: 'summary', 'suggestedImprovements', 'skills' (as list), 'jobTitles' (as list), and 'experienceLevel'. Respond only with JSON."
             ));
 
             messages.add(Map.of(
                     "role", "user",
-                    "content", "Please analyze this CV and respond with only JSON like this:\n" +
-                            "{\n  \"summary\": \"...\",\n  \"suggestedImprovements\": \"...\"\n}\n\n" +
+                    "content", "Analyze this CV and return JSON like this:\n" +
+                            "{\n" +
+                            "  \"summary\": \"...\",\n" +
+                            "  \"suggestedImprovements\": \"...\",\n" +
+                            "  \"skills\": [\"Java\", \"Spring\", \"Docker\"],\n" +
+                            "  \"jobTitles\": [\"Backend Developer\", \"Software Engineer\"],\n" +
+                            "  \"experienceLevel\": \"mid\"\n" +
+                            "}\n\n" +
                             "CV Text:\n" + extractedText
             ));
-    //        messages.add(Map.of("role", "system", "content", "You are an HR assistant who analyzes CVs and gives helpful feedback in JSON format with summary, suggestedImprovements, and sections."));
+
+
+            //        messages.add(Map.of("role", "system", "content", "You are an HR assistant who analyzes CVs and gives helpful feedback in JSON format with summary, suggestedImprovements, and sections."));
     //        messages.add(Map.of("role", "user", "content", "Please analyze this CV and respond in JSON:\n" + extractedText));
             requestBody.put("messages", messages);
 
@@ -183,23 +207,69 @@
 
 
 
+        private Map<String, Object> callAiJobRecommendation(String extractedText) {
+            String url = "https://openrouter.ai/api/v1/chat/completions";
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Authorization", "Bearer " + apiKey);
+
+            Map<String, Object> requestBody = new HashMap<>();
+            requestBody.put("model", "thudm/glm-z1-32b:free");
+
+            List<Map<String, String>> messages = new ArrayList<>();
+            messages.add(Map.of(
+                    "role", "system",
+                    "content", "You are an AI assistant that extracts job-matching data from CVs. Respond ONLY in valid JSON like:\n" +
+                            "{ \"skills\": [\"Java\", \"Spring\"], \"jobTitles\": [\"Backend Developer\"], \"experienceLevel\": \"mid\" }"
+            ));
+            messages.add(Map.of(
+                    "role", "user",
+                    "content", "Here is the CV text:\n" + extractedText
+            ));
+
+            requestBody.put("messages", messages);
+
+            HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
+            ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+
+            try {
+                com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+                Map<String, Object> fullResponse = mapper.readValue(response.getBody(), Map.class);
+
+                Map<String, Object> message = (Map<String, Object>) ((List<?>) fullResponse.get("choices")).get(0);
+                Map<String, Object> messageContent = (Map<String, Object>) message.get("message");
+                String content = (String) messageContent.get("content");
+
+                Map<String, Object> aiData = mapper.readValue(content, Map.class);
+                return aiData;
+
+            } catch (Exception e) {
+                return Map.of("error", "AI parsing failed: " + e.getMessage());
+            }
+        }
+
 
         @PostMapping("/recommendations")
         public ResponseEntity<?> getJobRecommendations(@RequestParam("cvId") Long cvId) {
             try {
-                Optional<CVAnalysisResult> analysisOpt = cvAnalysisResultRepository.findByCvId(cvId);
-                if (analysisOpt.isEmpty()) {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Analysis not found for CV ID: " + cvId);
+                Optional<Cv> cvOpt = cvRepository.findById(cvId);
+                if (cvOpt.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CV not found for ID: " + cvId);
                 }
 
-                CVAnalysisResult analysis = analysisOpt.get();
+                Cv cv = cvOpt.get();
+                String extractedText = cv.getTextExtracted();
 
-                // Mund të nxjerrësh këto të dhëna nga DB ose direkt nga analiza/CVSections
-                List<String> skills = extractSkills(cvId);          // e.g. ["Java", "Spring", "REST"]
-                List<String> jobTitles = extractJobTitles(cvId);    // e.g. ["Backend Developer", "Software Engineer"]
-                String experienceLevel = "mid";                     // mund ta nxjerrësh ose e vendos manualisht
+                // Thirr AI përsëri për të marrë rekomandimet
+                Map<String, Object> aiResponse = callAiJobRecommendation(extractedText); // funksion i ri që duhet ta shtosh
 
-                // Përgatit kërkesën për Flask
+                // Përgjigja e AI duhet të jetë një JSON me: skills, jobTitles, experienceLevel
+                List<String> skills = (List<String>) aiResponse.getOrDefault("skills", new ArrayList<>());
+                List<String> jobTitles = (List<String>) aiResponse.getOrDefault("jobTitles", new ArrayList<>());
+                String experienceLevel = (String) aiResponse.getOrDefault("experienceLevel", "unknown");
+
+                // Përgatit payload për Flask
                 Map<String, Object> requestPayload = new HashMap<>();
                 requestPayload.put("skills", skills);
                 requestPayload.put("experienceLevel", experienceLevel);
@@ -207,49 +277,25 @@
 
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-
                 HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestPayload, headers);
 
                 // Dërgo POST request tek Flask
-                String flaskUrl = "http://localhost:5000/match-jobs";
+                //String flaskUrl = "http://localhost:5000/match-jobs";
+                String flaskUrl = "http://127.0.0.1:5000/match-jobs";
+
                 ResponseEntity<String> flaskResponse = restTemplate.postForEntity(flaskUrl, request, String.class);
 
                 return ResponseEntity.ok(flaskResponse.getBody());
 
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body("Error communicating with Flask: " + e.getMessage());
+                        .body("Error generating job recommendations: " + e.getMessage());
             }
         }
-
+    
 
 
 
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
