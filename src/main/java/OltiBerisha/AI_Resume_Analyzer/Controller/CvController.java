@@ -25,7 +25,7 @@
     @RequestMapping("/api/cv")
     public class CvController {
 
-        private final String apiKey = "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";
+        private final String apiKey = "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";
 
         private final RestTemplate restTemplate = new RestTemplate();
         private final Tika tika = new Tika();
